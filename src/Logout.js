@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Button, Alert } from 'react-native';
 import axios from 'axios';
 
 const Logout = ({ navigation }) => {
-
   useEffect(() => {
     handleLogout();
   }, []);
 
-  const handleLogout = () => {
-    navigation.navigate('Login');
+  const handleLogout = async () => {
+    try {
+      // Send a request to the server to clear cookies (invalidate JWT)
+      await axios.post('http://192.168.115.249:5000/logout');
+      navigation.navigate('Login');
+    } catch (error) {
+      console.error('Logout failed', error);
+      Alert.alert('Error', 'Logout failed. Please try again.');
+    }
   };
 
   return (

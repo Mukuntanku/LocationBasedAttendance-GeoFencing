@@ -41,7 +41,7 @@ const ViewStudentLogs = ({ navigation }) => {
     // Fetch user details when the component mounts
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.156.249:5000/getUserDetails');
+        const response = await axios.get('http://192.168.115.249:5000/getUserDetails');
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);
         } else {
@@ -78,7 +78,7 @@ const ViewStudentLogs = ({ navigation }) => {
 
       const fetchCourses = async () => {
         try {
-          const response = await axios.post('http://192.168.156.249:5000/get_facultycourse', data);
+          const response = await axios.post('http://192.168.115.249:5000/get_facultycourse', data);
           if (response.data.message === 'success') {
             setCourseData(response.data.course);
           } else {
@@ -119,6 +119,7 @@ const fetchAttendanceSummary = () => {
   try {
     if (courseValue === 'defaultValue') {
       alert('Please Select A Course!!');
+      setAttendanceSummary(null);
       return;
     }
 
@@ -132,10 +133,11 @@ const fetchAttendanceSummary = () => {
     };
     console.log(data);
 
-    axios.post('http://192.168.156.249:5000/fetch_studentattendance_logs', data)
+    axios.post('http://192.168.115.249:5000/fetch_studentattendance_logs', data)
       .then(response => {
         if (response.data.status === 'no_records') {
           alert(response.data.message);
+          setAttendanceSummary(null);
         } else if (response.data.status === 'success') {
           setAttendanceSummary(response.data.records);
         }
@@ -170,7 +172,6 @@ const fetchAttendanceSummary = () => {
         onChange={(item) => {
           setCourseValue(item.value);
           setIsFocus(false);
-          setAttendanceSummary(null);
         }}
       />
 
@@ -190,7 +191,6 @@ const fetchAttendanceSummary = () => {
             setShowDatePicker(Platform.OS === 'ios'); // Close the date picker on iOS immediately
             if (selectedDate) {
               setStartDate(selectedDate);
-              setAttendanceSummary(null);
             }
           }}
         />
