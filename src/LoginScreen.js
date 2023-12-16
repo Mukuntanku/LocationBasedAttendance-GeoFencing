@@ -3,6 +3,7 @@ import { View, TextInput, Button, StyleSheet, SafeAreaView, Alert } from 'react-
 import axios from 'axios';
 import * as Application from 'expo-application';
 import * as Device from 'expo-device';
+import { BASE_URL } from './apiConfig';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -34,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://192.168.120.249:5000/login', {
+      const response = await axios.post(`${BASE_URL}/login`, {
         email,
         password,
         deviceid

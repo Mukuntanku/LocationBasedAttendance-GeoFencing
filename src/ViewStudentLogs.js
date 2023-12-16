@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform, Button } from 'reac
 import axios from 'axios';
 import { Dropdown } from 'react-native-element-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { BASE_URL } from './apiConfig';
 
 const AttendanceSummaryTable = ({ attendanceSummary }) => {
   if (!attendanceSummary || attendanceSummary.length === 0) {
@@ -41,7 +42,7 @@ const ViewStudentLogs = ({ navigation }) => {
     // Fetch user details when the component mounts
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.120.249:5000/getUserDetails');
+        const response = await axios.get(`${BASE_URL}/getUserDetails`);
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);
         } else {
@@ -78,7 +79,7 @@ const ViewStudentLogs = ({ navigation }) => {
 
       const fetchCourses = async () => {
         try {
-          const response = await axios.post('http://192.168.120.249:5000/get_facultycourse', data);
+          const response = await axios.post(`${BASE_URL}/get_facultycourse`, data);
           if (response.data.message === 'success') {
             setCourseData(response.data.course);
           } else {
@@ -133,7 +134,7 @@ const fetchAttendanceSummary = () => {
     };
     console.log(data);
 
-    axios.post('http://192.168.120.249:5000/fetch_studentattendance_logs', data)
+    axios.post(`${BASE_URL}/fetch_studentattendance_logs`, data)
       .then(response => {
         if (response.data.status === 'no_records') {
           alert(response.data.message);

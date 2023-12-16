@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Button, Alert } from 'react-native';
 import axios from 'axios';
+import { BASE_URL } from './apiConfig';
 
 const Logout = ({ navigation }) => {
   useEffect(() => {
@@ -10,7 +11,7 @@ const Logout = ({ navigation }) => {
   const handleLogout = async () => {
     try {
       // Send a request to the server to clear cookies (invalidate JWT)
-      await axios.post('http://192.168.120.249:5000/logout');
+      await axios.post(`${BASE_URL}/logout`);
       navigation.navigate('Login');
     } catch (error) {
       console.error('Logout failed', error);

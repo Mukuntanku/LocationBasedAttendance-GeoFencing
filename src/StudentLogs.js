@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import axios from 'axios';
 import { Dropdown } from 'react-native-element-dropdown';
+import { BASE_URL } from './apiConfig';
 
 const AttendanceSummaryTable = ({ attendanceSummary }) => {
   if (!attendanceSummary || attendanceSummary.length === 0) {
@@ -35,7 +36,7 @@ const StudentLogs = ({ navigation }) => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.120.249:5000/getUserDetails');
+        const response = await axios.get(`${BASE_URL}/getUserDetails`);
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);
         } else {
@@ -70,7 +71,7 @@ const StudentLogs = ({ navigation }) => {
 
       const fetchCourses = async () => {
         try {
-          const response = await axios.post('http://192.168.120.249:5000/get_studentcourse', data);
+          const response = await axios.post(`${BASE_URL}/get_studentcourse`, data);
           if (response.data.message === 'success') {
             setCourseData(response.data.course);
           } else {
@@ -109,7 +110,7 @@ const StudentLogs = ({ navigation }) => {
         course: courseValue,
       };
 
-      axios.post('http://192.168.120.249:5000/fetch_studentattendance', data)
+      axios.post(`${BASE_URL}/fetch_studentattendance`, data)
         .then(response => {
           if (response.data.status === 'no_records') {
             alert(response.data.message);

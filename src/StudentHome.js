@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import axios from 'axios';
+import { BASE_URL } from './apiConfig';
 
 const defaultProfileIcon = require('../assets/default.png'); // Replace with the path to your default profile icon
 
@@ -11,7 +12,7 @@ const StudentHome = ({ navigation }) => {
     // Function to fetch details from the /getUserDetails endpoint
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.120.249:5000/getUserDetails');
+        const response = await axios.get(`${BASE_URL}/getUserDetails`);
         // Assuming the response contains 'status' and 'user' fields
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);

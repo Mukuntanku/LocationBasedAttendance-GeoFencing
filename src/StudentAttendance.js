@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
 import * as Location from 'expo-location';
+import { BASE_URL } from './apiConfig';
 
 const StudentAttendance = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState(null);
@@ -12,7 +13,7 @@ const StudentAttendance = ({ navigation }) => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.120.249:5000/getUserDetails');
+        const response = await axios.get(`${BASE_URL}/getUserDetails`);
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);
         } else {
@@ -84,7 +85,7 @@ const StudentAttendance = ({ navigation }) => {
           };
           console.log(data);
           // Send post request
-          axios.post('http://192.168.120.249:5000/mark_studentattendance', data)
+          axios.post(`${BASE_URL}/mark_studentattendance`, data)
             .then(response => {
               if (response.data.status === 'no_code') {
                 alert(response.data.message);

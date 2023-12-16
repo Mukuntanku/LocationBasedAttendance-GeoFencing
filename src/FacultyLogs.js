@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import axios from 'axios';
+import { BASE_URL } from './apiConfig';
 
 const FacultyLogs = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState(null);
@@ -9,7 +10,7 @@ const FacultyLogs = ({ navigation }) => {
     // Function to fetch details from the /getUserDetails endpoint
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.120.249:5000/getUserDetails');
+        const response = await axios.get(`${BASE_URL}/getUserDetails`);
         // Assuming the response contains 'status' and 'user' fields
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);

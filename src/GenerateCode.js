@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { Dropdown } from 'react-native-element-dropdown';
 import * as Location from 'expo-location';
+import { BASE_URL } from './apiConfig';
 
 const GenerateCode = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState(null);
@@ -19,7 +20,7 @@ const GenerateCode = ({ navigation }) => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.120.249:5000/getUserDetails');
+        const response = await axios.get(`${BASE_URL}/getUserDetails`);
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);
         } else {
@@ -58,7 +59,7 @@ const GenerateCode = ({ navigation }) => {
       };
       const fetch_tt = async () => {
         try {
-          const response = await axios.post('http://192.168.120.249:5000/get_tt',  data);
+          const response = await axios.post(`${BASE_URL}/get_tt`,  data);
           if(response.data.status === 'no_tt'){
             alert(response.data.message);
             return;
@@ -129,7 +130,7 @@ const GenerateCode = ({ navigation }) => {
             course: coursevalue,
           };
           // Send post request
-          axios.post('http://192.168.120.249:5000/setrandom', data)
+          axios.post(`${BASE_URL}/setrandom`, data)
             .then(response => {
               if (response.data.message === 'success') {
                 setPostSuccess(true);
@@ -160,7 +161,7 @@ const GenerateCode = ({ navigation }) => {
 
 const handleSecondButtonPress = async () => {
     try {
-      const result = await axios.post('http://192.168.120.249:5000/delrandom', {
+      const result = await axios.post(`${BASE_URL}/delrandom`, {
         random: randomNumber,
       });
       if(result.data.message === 'success') {

@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 import axios from 'axios';
 import Modal from "react-native-modal";
+import { BASE_URL } from './apiConfig';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -40,7 +41,7 @@ const FacultyAttendance = ({ navigation }) => {
     // Function to fetch details from the /getUserDetails endpoint
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.120.249:5000/getUserDetails');
+        const response = await axios.get(`${BASE_URL}/getUserDetails`);
         // Assuming the response contains 'status' and 'user' fields
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);
@@ -142,7 +143,7 @@ const FacultyAttendance = ({ navigation }) => {
           };
   
           // Send data to the server
-          axios.post('http://192.168.120.249:5000/getAttendance', data)
+          axios.post(`${BASE_URL}/getAttendance`, data)
             .then((response) => {
               console.log('Response from server:', response.data);
               if (response.data.message === 'true') {
