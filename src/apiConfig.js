@@ -1,3 +1,3 @@
 // apiConfig.js
 
-export const BASE_URL = 'http://35.226.10.103:5000';
+export const BASE_URL = 'http://34.67.118.2:5000';
