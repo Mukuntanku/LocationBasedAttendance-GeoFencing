@@ -10,7 +10,7 @@ const Logout = ({ navigation }) => {
   const handleLogout = async () => {
     try {
       // Send a request to the server to clear cookies (invalidate JWT)
-      await axios.post('http://192.168.115.249:5000/logout');
+      await axios.post('http://192.168.120.249:5000/logout');
       navigation.navigate('Login');
     } catch (error) {
       console.error('Logout failed', error);

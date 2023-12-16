@@ -12,7 +12,7 @@ const StudentAttendance = ({ navigation }) => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.115.249:5000/getUserDetails');
+        const response = await axios.get('http://192.168.120.249:5000/getUserDetails');
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);
         } else {
@@ -84,7 +84,7 @@ const StudentAttendance = ({ navigation }) => {
           };
           console.log(data);
           // Send post request
-          axios.post('http://192.168.115.249:5000/mark_studentattendance', data)
+          axios.post('http://192.168.120.249:5000/mark_studentattendance', data)
             .then(response => {
               if (response.data.status === 'no_code') {
                 alert(response.data.message);

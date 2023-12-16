@@ -35,7 +35,7 @@ const StudentLogs = ({ navigation }) => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.115.249:5000/getUserDetails');
+        const response = await axios.get('http://192.168.120.249:5000/getUserDetails');
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);
         } else {
@@ -70,7 +70,7 @@ const StudentLogs = ({ navigation }) => {
 
       const fetchCourses = async () => {
         try {
-          const response = await axios.post('http://192.168.115.249:5000/get_studentcourse', data);
+          const response = await axios.post('http://192.168.120.249:5000/get_studentcourse', data);
           if (response.data.message === 'success') {
             setCourseData(response.data.course);
           } else {
@@ -109,7 +109,7 @@ const StudentLogs = ({ navigation }) => {
         course: courseValue,
       };
 
-      axios.post('http://192.168.115.249:5000/fetch_studentattendance', data)
+      axios.post('http://192.168.120.249:5000/fetch_studentattendance', data)
         .then(response => {
           if (response.data.status === 'no_records') {
             alert(response.data.message);

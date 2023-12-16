@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://192.168.115.249:5000/login', {
+      const response = await axios.post('http://192.168.120.249:5000/login', {
         email,
         password,
         deviceid
@@ -46,12 +46,15 @@ const LoginScreen = ({ navigation }) => {
       setRole(response.data.role);
 
       if (role === 'admin') {
+        setRole('');
         navigation.navigate('Admin');
       } else if (role === 'faculty') {
+        setRole('');
         navigation.navigate('Faculty', {
           screen: 'FacultyHome'
         });
       } else if (role === 'student') {
+        setRole('');
         navigation.navigate('Student', {
           screen: 'StudentHome'
         });

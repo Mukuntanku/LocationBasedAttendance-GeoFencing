@@ -11,7 +11,7 @@ const FacultyHome = ({ navigation }) => {
     // Function to fetch details from the /getUserDetails endpoint
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.115.249:5000/getUserDetails');
+        const response = await axios.get('http://192.168.120.249:5000/getUserDetails');
         // Assuming the response contains 'status' and 'user' fields
         if (response.data.status === 'success') {
           setUserDetails(response.data.user);
